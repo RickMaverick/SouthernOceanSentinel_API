@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,6 +27,11 @@ public class LocationController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/record/{locationId}")
+    public ResponseEntity<List<PhotoRecord>> getRecordsByLocationId(@PathVariable Long locationId){
+        return ResponseEntity.ok(locationService.listRecords(locationId));
     }
 
     @PostMapping

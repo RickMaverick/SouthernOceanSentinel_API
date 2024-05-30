@@ -10,6 +10,7 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,6 +32,19 @@ public class LocationService {
         } catch (Exception e) {
             return Optional.empty();
         }
+    }
+
+    public List<PhotoRecord> listRecords(Long locationId) {
+        try {
+            Optional<Location> optionalLocation = locationRepository.findById(locationId);
+            if (optionalLocation.isPresent()){
+                Location requestedLocation = optionalLocation.get();
+                return requestedLocation.getRecords();
+            }
+        } catch (Exception e) {
+            Optional.empty();
+        }
+        return null;
     }
 
     public Location saveNewLocation(LocationDTO newLocation) {
