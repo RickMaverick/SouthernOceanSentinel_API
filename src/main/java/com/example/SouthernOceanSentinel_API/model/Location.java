@@ -23,7 +23,7 @@ public class Location {
     @JoinColumn(name = "location_id")
     private List<PhotoRecord> records;
 
-    //Construtor DTO
+    //DTO constructor
     public Location (LocationDTO locationDTO){
         this.name = locationDTO.getName();
         this.country = locationDTO.getCountry();
