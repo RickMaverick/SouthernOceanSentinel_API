@@ -2,8 +2,6 @@ package com.example.SouthernOceanSentinel_API.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.lang.reflect.Array;
 import java.util.List;
 
 @Entity
