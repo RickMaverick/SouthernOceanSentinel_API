@@ -1,12 +1,16 @@
 package com.example.SouthernOceanSentinel_API.model;
 
+import com.example.SouthernOceanSentinel_API.controller.dto.LocationDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Location {
     @Id
@@ -18,4 +22,11 @@ public class Location {
     @OneToMany
     @JoinColumn(name = "location_id")
     private List<PhotoRecord> records;
+
+    //Construtor DTO
+    public Location (LocationDTO locationDTO){
+        this.name = locationDTO.getName();
+        this.country = locationDTO.getCountry();
+        this.coordinates = locationDTO.getCoordinates();
+    }
 }
