@@ -6,12 +6,15 @@ import com.example.SouthernOceanSentinel_API.model.Location;
 import com.example.SouthernOceanSentinel_API.model.PhotoRecord;
 import com.example.SouthernOceanSentinel_API.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/locations")
@@ -21,9 +24,12 @@ public class LocationController {
 
     @GetMapping("{locationId}")
     public ResponseEntity<Location> getLocationById(@PathVariable Long locationId) {
-        Optional<Location> location = locationService.listLocationById(locationId);
-        if (location.isPresent()) {
-            return ResponseEntity.ok(location.get());
+        Optional<Location> optionalLocation = locationService.listLocationById(locationId);
+        if (optionalLocation.isPresent()) {
+            Location location = optionalLocation.get();
+            Link link = linkTo(LocationController.class).slash(location.getId()).withSelfRel();
+            location.add(link);
+            return ResponseEntity.ok(location);
         } else {
             return ResponseEntity.notFound().build();
         }
