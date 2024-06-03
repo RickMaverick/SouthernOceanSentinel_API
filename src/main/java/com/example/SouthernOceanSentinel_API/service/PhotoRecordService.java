@@ -4,6 +4,8 @@ import com.example.SouthernOceanSentinel_API.model.PhotoRecord;
 import com.example.SouthernOceanSentinel_API.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -17,6 +19,7 @@ public class PhotoRecordService {
     @Autowired
     private LocationRepository locationRepository;
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public PhotoRecord savePhotoRecord(Long locationId,MultipartFile file, String description, String waterTemp) throws IOException {
         PhotoRecord photoRecord = new PhotoRecord();
         photoRecord.setImageData(file.getBytes());
@@ -36,6 +39,7 @@ public class PhotoRecordService {
         return location.getRecordById(recordId);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public void saveAnalisis(PhotoRecord photoRecord) {
         photoRecordRepository.save(photoRecord);
     }

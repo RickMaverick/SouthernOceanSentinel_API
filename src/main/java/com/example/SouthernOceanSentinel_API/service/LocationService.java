@@ -9,6 +9,8 @@ import com.example.SouthernOceanSentinel_API.repository.PhotoRecordRepository;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,6 +49,7 @@ public class LocationService {
         return null;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public Location saveNewLocation(LocationDTO newLocation) {
         Location location = new Location();
         location.setName(newLocation.getName());
@@ -55,6 +58,7 @@ public class LocationService {
         return locationRepository.save(location);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public PhotoRecord saveNewRecord(@NonNull PhotoRecordDTO newRecordDTO, Long id) {
         Optional<Location> optionalLocation = locationRepository.findById(id);
         if (optionalLocation.isPresent()){
