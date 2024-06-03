@@ -35,4 +35,8 @@ public class PhotoRecordService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid location ID"));
         return location.getRecordById(recordId);
     }
+
+    public void saveAnalisis(PhotoRecord photoRecord) {
+        photoRecordRepository.save(photoRecord);
+    }
 }

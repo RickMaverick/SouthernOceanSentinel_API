@@ -60,6 +60,9 @@ public class ImageAnalisisController {
             //Get the "class" key
             String classKey = firstPrediction.getString("class");
 
+            photoRecord.addAnalisis(classKey);
+            photoRecordService.saveAnalisis(photoRecord);
+
             return ResponseEntity.ok(classKey);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
