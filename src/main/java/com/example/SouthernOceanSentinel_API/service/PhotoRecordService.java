@@ -29,4 +29,10 @@ public class PhotoRecordService {
 
         return photoRecordRepository.save(photoRecord);
     }
+
+    public PhotoRecord listRecordByIds(Long locationId, Long recordId) {
+        Location location = locationRepository.findById(locationId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid location ID"));
+        return location.getRecordById(recordId);
+    }
 }

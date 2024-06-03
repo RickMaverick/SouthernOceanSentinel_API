@@ -28,6 +28,15 @@ public class Location extends RepresentationModel<Location>{
         records.add(newPhotoRecord);
     }
 
+    public PhotoRecord getRecordById(Long recordId) {
+        for (PhotoRecord record : records) {
+            if (record.getId().equals(recordId)) {
+                return record;
+            }
+        }
+        throw new IllegalArgumentException("Invalid record ID");
+    }
+
     //DTO constructor
     public Location (LocationDTO locationDTO){
         this.name = locationDTO.getName();
