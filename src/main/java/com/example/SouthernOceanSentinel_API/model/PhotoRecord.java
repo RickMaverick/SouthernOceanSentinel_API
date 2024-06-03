@@ -42,6 +42,10 @@ public class PhotoRecord {
         date = LocalDateTime.now();
     }
 
+    public void addAnalisis(String analisisResult){
+        this.analisisResult = analisisResult;
+    }
+
     //DTO Constructor
     public PhotoRecord(PhotoRecordDTO newRecord){
         this.imageData = newRecord.getImageData();
